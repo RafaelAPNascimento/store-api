@@ -14,39 +14,55 @@ functions:
   #readProduct:
   #  handler: com.serverless.requests.ReadProduct
 
-  #listProducts:
-  #  handler: com.serverless.requests.ListProducts
+  listProducts:
+    role: arn:aws:iam::423672971386:role/DBA
+    handler: com.serverless.requests.ListProducts
+    environment:
+      TABLE_NAME: Product
+    events:
+      - http:
+          path: product/all
+          method: get
+          integration: lambda-proxy
 
   #updateProduct:
   #  handler: com.serverless.requests.UpdateProduct
 
-  #deleteProduct:
-  #  handler: com.serverless.requests.DeleteProduct
-  saveProduct:
-    #    role: arn:aws:iam::423672971386:role/DBA
-    handler: com.serverless.requests.SaveProduct
-#    environment:
-#      TABLE_NAME: Product
-#    events:
-#      - http:
-#          path: product
-#          method: post
-#          integration: lambda-proxy
+  deleteProduct:
+    role: arn:aws:iam::423672971386:role/DBA
+    handler: com.serverless.requests.DeleteProduct
+    environment:
+      TABLE_NAME: Product
+    events:
+      - http:
+          path: product/{id}
+          method: delete
+          integration: lambda-proxy
 
-#resources:
-#  Resources:
-#    ProductTable:
-#      Type: 'AWS::DynamoDB::Table'
-#      Properties:
-#        TableName: Product
-#        AttributeDefinitions:
-#          - AttributeName: id
-#            AttributeType: N
-#        KeySchema:
-#          - AttributeName: id
-#            KeyType: HASH
-#        ProvisionedThroughput:
-#          ReadCapacityUnits: 5
-#          WriteCapacityUnits: 5
-#        BillingMode: PAY_PER_REQUEST
+  saveProduct:
+    role: arn:aws:iam::423672971386:role/DBA
+    handler: com.serverless.requests.SaveProduct
+    environment:
+      TABLE_NAME: Product
+    events:
+      - http:
+          path: product
+          method: post
+          integration: lambda-proxy
+
+resources:
+  Resources:
+    ProductTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        TableName: Product
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: N
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
 
