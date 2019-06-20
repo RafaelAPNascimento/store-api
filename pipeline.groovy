@@ -16,7 +16,7 @@ node('master'){
 stage("============== compile"){
 
     dir('project-dir') {
-
+        sh 'pwd'
         withMaven(maven: 'maven_3_5_2') {
             sh 'mvn compile'
         }
