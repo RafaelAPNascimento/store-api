@@ -15,19 +15,19 @@ import com.amazonaws.services.apigateway.model.GetDeploymentsResult;
 
 stage("============== compile"){
 
-    withMaven(maven: maven_3_5_2){
+    withMaven(maven: 'maven_3_5_2'){
         sh 'mvn compile'
     }
 }
 stage("============== test"){
 
-    withMaven(maven: maven_3_5_2){
+    withMaven(maven: 'maven_3_5_2'){
         sh 'mvn test'
     }
 }
 stage("============== package"){
 
-    withMaven(maven: maven_3_5_2){
+    withMaven(maven: 'maven_3_5_2'){
         sh 'mvn clean package'
     }
 }
