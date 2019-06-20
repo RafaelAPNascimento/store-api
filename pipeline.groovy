@@ -15,8 +15,8 @@ import com.amazonaws.services.apigateway.model.GetDeploymentsResult;
 node('master'){
 stage("============== compile"){
 
-    dir('project-dir') {
-        sh 'pwd'
+    dir('store-api') {
+        sh 'ls -la'
         withMaven(maven: 'maven_3_5_2') {
             sh 'mvn compile'
         }
