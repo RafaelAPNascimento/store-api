@@ -13,7 +13,7 @@ import com.amazonaws.services.apigateway.model.GetDeploymentsRequest;
 import com.amazonaws.services.apigateway.model.GetDeploymentsResult;
 
 node('master'){
-/*stage("============== compile"){
+stage("============== compile"){
 
     dir('project-dir') {
 
@@ -33,8 +33,8 @@ stage("============== package"){
     withMaven(maven: 'maven_3_5_2'){
         sh 'mvn clean package'
     }
-}*/
+}
 stage("============== deploy"){
-    sh 'aws lambda list-functions --profile pessoal'
+    sh 'sls deploy --profile pessoal'
 }
 }
