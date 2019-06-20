@@ -12,7 +12,7 @@ import com.amazonaws.services.apigateway.model.Deployment;
 import com.amazonaws.services.apigateway.model.GetDeploymentsRequest;
 import com.amazonaws.services.apigateway.model.GetDeploymentsResult;
 
-
+node('master'){
 stage("============== compile"){
 
     withMaven(maven: 'maven_3_5_2'){
@@ -33,4 +33,5 @@ stage("============== package"){
 }
 stage("============== deploy"){
     sh 'aws lambda list-functions --profile pessoal'
+}
 }
