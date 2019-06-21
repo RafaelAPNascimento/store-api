@@ -13,8 +13,29 @@ import com.amazonaws.services.apigateway.model.GetDeploymentsRequest;
 import com.amazonaws.services.apigateway.model.GetDeploymentsResult;
 
 node('master'){
-    stage("============== deploy API"){
+stage("============== compile"){
 
-        deployAPI(api:'rjer823v32', stage:'dev')
+    dir('store-api') {
+        pwd()
+        sh 'ls -la'
+        withMaven(maven: 'maven_3_5_2') {
+            sh 'mvn compile'
+        }
     }
+}
+stage("============== test"){
+
+    withMaven(maven: 'maven_3_5_2'){
+        sh 'mvn test'
+    }
+}
+stage("============== package"){
+
+    withMaven(maven: 'maven_3_5_2'){
+        sh 'mvn clean package'
+    }
+}
+stage("============== deploy"){
+    sh 'sls deploy --profile pessoal'
+}
 }
