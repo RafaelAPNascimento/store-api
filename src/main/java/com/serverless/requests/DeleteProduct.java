@@ -23,14 +23,14 @@ public class DeleteProduct implements RequestHandler<APIGatewayProxyRequestEvent
     private static LambdaLogger LOGGER;
 
     @Override
-    public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent request, Context context) {
+    public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent req, Context context) {
 
         LOGGER = context.getLogger();
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent();
         String responseBody = null;
 
         try {
-            String paramId = request.getQueryStringParameters().get("id");
+            String paramId = req.getPathParameters().get("id");
 
             if (paramId != null) {
 
@@ -40,11 +40,10 @@ public class DeleteProduct implements RequestHandler<APIGatewayProxyRequestEvent
                 Table table = dynamoDB.getTable(DYNAMO_TABLE_NAME);
 
                 DeleteItemSpec del = new DeleteItemSpec()
-                        .withPrimaryKey("id", paramId)
+                        .withPrimaryKey("id", id)
                         .withReturnValues(ReturnValue.ALL_OLD);
 
                 DeleteItemOutcome outcome = table.deleteItem(del);
-                //Map<String, AttributeValue> dbItem = outcome.getDeleteItemResult().getAttributes();
                 DeleteItemResult deleteItem = outcome.getDeleteItemResult();
 
                 if (deleteItem != null) {
@@ -54,7 +53,7 @@ public class DeleteProduct implements RequestHandler<APIGatewayProxyRequestEvent
             }
             else{
                 LOGGER.log("ID parametro inválido'");
-                responseBody = "ID parametro inválido'";
+                responseBody = "ID parametro inválido"+". ID: "+paramId;;
             }
         }
         catch (Exception e){

@@ -11,8 +11,22 @@ package:
   artifact: target/store-dev.jar
 
 functions:
-  #readProduct:
-  #  handler: com.serverless.requests.ReadProduct
+  readProduct:
+    handler: com.serverless.requests.ReadProduct
+    role: arn:aws:iam::423672971386:role/DBA
+    environment:
+      TABLE_NAME: Product
+    events:
+      - http:
+          path: product
+          method: GET
+          integration: lambda
+          request:
+            parameters:
+              querystrings:
+                id: true
+            template:
+              application/json: '{"id":"$input.params(''id'')"}'
 
   listProducts:
     role: arn:aws:iam::423672971386:role/DBA
