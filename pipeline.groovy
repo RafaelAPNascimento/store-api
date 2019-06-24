@@ -15,8 +15,8 @@ import com.amazonaws.services.apigateway.model.GetDeploymentsResult;
 node('master'){
 stage("============== compile"){
 
-    echo '$AWS_ACCESS_KEY_ID'
-    echo '$AWS_SECRET_ACCESS_KEY'
+    echo $AWS_ACCESS_KEY_ID
+    echo $AWS_SECRET_ACCESS_KEY
     dir('store-api') {
         pwd()
         sh 'ls -la'
