@@ -8,8 +8,6 @@ import com.amazonaws.services.apigateway.model.Deployment;
 import com.amazonaws.services.apigateway.model.GetDeploymentsRequest;
 import com.amazonaws.services.apigateway.model.GetDeploymentsResult;
 
-@Grab(group = "com.amazonaws", module = "aws-java-sdk", version = "1.11.575")
-class Test{}
 
 node('master'){
 stage("============== compile"){
