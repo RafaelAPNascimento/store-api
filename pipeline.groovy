@@ -1,7 +1,3 @@
-// https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk
-@Grapes(
-        @Grab(group='com.amazonaws', module='aws-java-sdk', version='1.11.572')
-)
 
 import groovy.json.JsonSlurper
 import groovy.json.JsonSlurper
@@ -12,9 +8,15 @@ import com.amazonaws.services.apigateway.model.Deployment;
 import com.amazonaws.services.apigateway.model.GetDeploymentsRequest;
 import com.amazonaws.services.apigateway.model.GetDeploymentsResult;
 
+@Grab(group = "com.amazonaws", module = "aws-java-sdk", version = "1.11.575")
+class Test{}
+
 node('master'){
 stage("============== compile"){
 
+    //returns the AWS security credentials configured for the named profile
+    AWSCredentialsProvider credentialsProvider = new EnvironmentVariableCredentialsProvider()
+    echo credentialsProvider.getCredentials()
     //echo '${env.AWS_ACCESS_KEY_ID}'
     //echo '${env.AWS_SECRET_ACCESS_KEY}'
     sh 'printenv'
