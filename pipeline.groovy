@@ -1,13 +1,19 @@
 
 import groovy.json.JsonSlurper
-import groovy.json.JsonSlurper
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.profile.ProfileCredentialsProvider
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.apigateway.AmazonApiGateway;
-import com.amazonaws.services.apigateway.AmazonApiGatewayClientBuilder;
+import com.amazonaws.services.apigateway.AmazonApiGatewayClientBuilder
+import com.amazonaws.services.apigateway.model.CreateStageRequest
+import com.amazonaws.services.apigateway.model.CreateStageResult;
 import com.amazonaws.services.apigateway.model.Deployment;
 import com.amazonaws.services.apigateway.model.GetDeploymentsRequest;
 import com.amazonaws.services.apigateway.model.GetDeploymentsResult;
 
+
+@Grab(group = "com.amazonaws", module = "aws-java-sdk", version = "1.11.575")
+class Test{}
 
 node('master'){
 stage("============== compile"){

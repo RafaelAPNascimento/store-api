@@ -30,9 +30,7 @@ public class ReadProduct implements RequestHandler<Product, ApiGatewayResponse> 
 
 
             return ApiGatewayResponse.builder().setStatusCode(200).setObjectBody(input.getId()).build();
-
         }
-
 
         return ApiGatewayResponse.builder()
                 .setStatusCode(404)

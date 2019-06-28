@@ -39,8 +39,28 @@ functions:
           method: get
           integration: lambda-proxy
 
-  #updateProduct:
-  #  handler: com.serverless.requests.UpdateProduct
+  updateProduct:
+    handler: com.serverless.requests.UpdateProduct
+    role: arn:aws:iam::423672971386:role/DBA
+    environment:
+      TABLE_NAME: Product
+    events:
+      - http:
+          path: product
+          method: put
+          integration: lambda
+          request:
+            template:
+              application/json:
+                  '{
+                    "product":
+                      {
+                        "id": "$input.body.id",
+                        "name": "$input.body.name",
+                        "value": "$input.body.value",
+                        "description": "$input.body.description"
+                      }
+                  }'
 
   deleteProduct:
     role: arn:aws:iam::423672971386:role/DBA
