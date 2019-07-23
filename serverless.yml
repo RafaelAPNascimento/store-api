@@ -10,6 +10,9 @@ provider:
 package:
   artifact: target/store-dev.jar
 
+plugins:
+  - serverless-import-swagger
+
 functions:
   readProduct:
     handler: com.serverless.requests.ReadProduct
@@ -50,17 +53,12 @@ functions:
           method: put
           integration: lambda
           request:
+            schema:
+              application/json: ${file(models/product.json)}    #crie o esquema json da classe produto dentro de pasta model
             template:
-              application/json:
-                  '{
-                    "product":
-                      {
-                        "id": "$input.body.id",
-                        "name": "$input.body.name",
-                        "value": "$input.body.value",
-                        "description": "$input.body.description"
-                      }
-                  }'
+              application/json: $input.json('$')
+              
+                  
 
   deleteProduct:
     role: arn:aws:iam::423672971386:role/DBA
