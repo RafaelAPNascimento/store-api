@@ -5,13 +5,13 @@ provider:
   name: aws
   runtime: java8
   stage: dev
-  region: sa-east-1
+  region: us-east-1
 
 package:
   artifact: target/store-dev.jar
 
 plugins:
-  - serverless-import-swagger
+#  - serverless-import-swagger
 
 functions:
   readProduct:
