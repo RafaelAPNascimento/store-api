@@ -1,0 +1,104 @@
+# Every Open API file needs this
+swagger: '2.0'
+
+# Document metadata
+info:
+  version: "0.0.1"
+  title: Store
+
+# URL data
+host: i8zxs5vcp3.execute-api.sa-east-1.amazonaws.com
+basePath: /dev/product
+schemes:
+  - https
+
+definitions:
+  product:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      value:
+        type: number
+      description:
+        type: string
+
+  products:
+    type: array
+    items:
+      $ref: '#/definitions/product'
+
+#Endpoints
+paths:
+
+  /all:
+    get:
+      summary: "get all products"
+      description: ""
+      produces:
+        - "application/xml"
+        - "application/json"
+      responses:
+        200:
+          description: sucessfull
+          schema:
+            $ref: '#/definitions/products'
+
+  /:
+    get:
+      summary: "get a product by id"
+      description: ""
+      parameters:
+        - name: id
+          in: query
+          required: true
+          type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/product'
+
+    delete:
+      summary: "delete a product by id"
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/product'
+
+    post:
+      summary: "save the product"
+      parameters:
+        - name: product
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/product'
+      responses:
+        200:
+          description: OK
+        400:
+          description: Invalid
+
+    put:
+      summary: "update product"
+      parameters:
+        - name: product
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/product'
+      responses:
+        200:
+          description: OK
+        400:
+          description: Invalid
